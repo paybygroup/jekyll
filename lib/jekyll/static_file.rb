@@ -3,7 +3,7 @@ module Jekyll
     # The cache of last modification times [path] -> mtime.
     @@mtimes = Hash.new
 
-    attr_reader :relative_path
+    attr_reader :relative_path, :extname
 
     # Initialize a new StaticFile.
     #
@@ -17,7 +17,8 @@ module Jekyll
       @dir  = dir
       @name = name
       @collection = collection
-      @relative_path = File.join(*[@dir, @name].compact)
+      @relative_path = File.join(*["", @dir, @name].compact)
+      @extname = File.extname(@name)
     end
 
     # Returns source file path.
@@ -46,9 +47,13 @@ module Jekyll
       end
     end
 
+    def modified_time
+      @modified_time ||= File.stat(path).mtime
+    end
+
     # Returns last modification time for this file.
     def mtime
-      File.stat(path).mtime.to_i
+      modified_time.to_i
     end
 
     # Is source path modified?
@@ -95,8 +100,8 @@ module Jekyll
     def to_liquid
       {
         "path"          => File.join("", relative_path),
-        "modified_time" => mtime.to_s,
-        "extname"       => File.extname(relative_path)
+        "modified_time" => modified_time,
+        "extname"       => extname,
       }
     end
   end
