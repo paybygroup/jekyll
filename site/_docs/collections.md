@@ -77,9 +77,9 @@ collections:
 For example, if you have `_my_collection/some_subdir/some_doc.md`, it will be
 written out to `<dest>/awesome/some_subdir/some_doc/index.html`.
 
-**Note that files in collections that do not have front matter are treated
-as static files and simply copied to their output location without
-processing.**
+**Note that files in collections that do not have front matter are treated as
+[static files](/docs/static-files/) and simply copied to their output location
+without processing.**
 
 <div class="mobile-side-scroller">
 <table>
