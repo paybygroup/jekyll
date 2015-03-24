@@ -18,7 +18,7 @@ def jekyll_output_file
 end
 
 def jekyll_run_output
-  File.read(jekyll_output_file) if File.file?(jekyll_output_file)
+  File.read(jekyll_output_file.downcase) if File.file?(jekyll_output_file)
 end
 
 def run_jekyll(args)
